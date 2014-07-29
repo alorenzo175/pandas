@@ -15,7 +15,7 @@ def load_reduce(self):
     stack = self.stack
     args = stack.pop()
     func = stack[-1]
-    if type(args[0]) is type:
+    if len(args) > 0 and type(args[0]) is type:
         n = args[0].__name__
         if n == u('DeprecatedSeries') or n == u('DeprecatedTimeSeries'):
             stack[-1] = object.__new__(Series)

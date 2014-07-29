@@ -80,6 +80,10 @@ class TestPickle(tm.TestCase):
             if 'series' in data:
                 if 'ts' in data['series']:
                     self._validate_timeseries(data['series']['ts'], self.data['series']['ts'])
+                if 'ts_utc' in data['series']:
+                    self._validate_timeseries(data['series']['ts_utc'], self.data['series']['ts_utc'])
+                if 'ts_tz' in data['series']:
+                    self._validate_timeseries(data['series']['ts_tz'], self.data['series']['ts_tz'])
 
     def test_read_pickles_0_10_1(self):
         self.read_pickles('0.10.1')
@@ -112,6 +116,7 @@ class TestPickle(tm.TestCase):
         # GH 7748
         tm.assert_series_equal(pickled, current)
         self.assertEqual(pickled.index.freq, current.index.freq)
+        self.assertEqual(pickled.index.tz, current.index.tz)
         self.assertEqual(pickled.index.freq.normalize, False)
         self.assert_numpy_array_equal(pickled > 0, current > 0)
 

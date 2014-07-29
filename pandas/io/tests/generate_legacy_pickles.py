@@ -85,7 +85,11 @@ def create_data():
                   mi = Series(np.arange(5).astype(np.float64),index=MultiIndex.from_tuples(tuple(zip(*[[1,1,2,2,2],
                                                                                                     [3,4,3,4,5]])),
                                                                                            names=['one','two'])),
-                  dup=Series(np.arange(5).astype(np.float64), index=['A', 'B', 'C', 'D', 'A']))
+                  dup=Series(np.arange(5).astype(np.float64), index=['A', 'B', 'C', 'D', 'A']),
+                  ts_utc = TimeSeries(np.arange(10).astype(np.int64),index=date_range(
+                      '20130101 00:00',freq='1min',periods=10)).tz_localize('UTC'),
+                  ts_tz = TimeSeries(np.arange(10).astype(np.int64),index=date_range(
+                      '20130101 00:00',freq='1min',periods=10)).tz_localize('EST'),)
 
     frame = dict(float = DataFrame(dict(A = series['float'], B = series['float'] + 1)),
                  int = DataFrame(dict(A = series['int']  , B = series['int']   + 1)),
